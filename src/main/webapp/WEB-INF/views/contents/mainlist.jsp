@@ -26,7 +26,6 @@
 				<div class="row">
 					<c:forEach var="dto" begin="0" end="3" items="${list}">
 						<div class="col-sm-3">
-							<h3>Ripped Skinny</h3>
 							<p>
 								<a href="/contents/detail/${dto.contentsno }"><p><img src="/pstorage/${dto.filename }" class="img-thumbnail"  width="236" height="306"></p></a>
 							</p>
@@ -39,7 +38,6 @@
 				<div class="row">
 					<c:forEach var="dto" begin="4" end="7" items="${list}">
 						<div class="col-sm-3">
-							<h3>Vintage Skinny</h3>
 							<p>
 								 <a href="/contents/detail/${dto.contentsno }"><p><img src="/pstorage/${dto.filename }" class="img-thumbnail"  width="236" height="306"></p></a>
 							</p>
@@ -49,7 +47,7 @@
 						</div>
 					</c:forEach>
 				</div>
-  ${paging}
+  ${paging2}
 </c:otherwise>
 		</c:choose>
 	</div>

@@ -20,5 +20,9 @@ ContentsDTO detail(int contentsno);
 List<Map> getCategory();
 
 List<ContentsDTO> mainlist(Map map);
+
+int passwd(Map map);
+
+int delete(int contentsno);
  
 }

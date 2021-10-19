@@ -9,13 +9,10 @@
 <head>
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
-   <script type="text/javascript">
+   <script>
      function read(contentsno){
-       var url = "read";
-       url += "?contentsno="+contentsno;
-       url += "&col=${col}";
-       url += "&word=${word}";
-       url += "&nowPage=${nowPage}";
+       var url = "/contents/read";
+       url += "/"+contentsno;
        location.href=url;
  
      }

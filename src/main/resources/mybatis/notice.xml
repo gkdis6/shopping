@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.study.notice.NoticeMapper">
+	<update id="update" parameterType="com.study.notice.NoticeDTO">
+        UPDATE notice SET title=#{title}, content=#{content}, wname=#{wname} WHERE noticeno=#{noticeno}
+    </update>
+    
+    <select id="read" parameterType="int" resultType="com.study.notice.NoticeDTO">
+        SELECT noticeno, title, content, wname, passwd, cnt, rdate FROM notice WHERE noticeno=#{noticeno}
+    </select>
+    
+    <insert id="create" parameterType="com.study.notice.NoticeDTO">
+        INSERT INTO notice(title, content, wname, passwd, cnt, rdate) 
+        VALUES(#{title}, #{content}, #{wname}, #{passwd}, 0, NOW())
+    </insert>
+    
+    <select id="list" parameterType="Map" resultType="com.study.notice.NoticeDTO">
+    SELECT noticeno, title,  wname, cnt, rdate, r
+    FROM (SELECT noticeno, title,  wname, cnt, rdate, rownum r
+    	from(SELECT noticeno, title,  wname, cnt, rdate from notice
+    <where>
+              <choose>
+                  <when test="col=='wname'">
+                      wname like '%'||#{word}||'%'
+                  </when>
+                  <when test="col=='title'">
+                      title like '%'||#{word}||'%'
+                  </when>
+                  <when test="col=='content'">
+                      content like '%'||#{word}||'%'
+                  </when>
+                  <when test="col=='title_content'">
+                     title like '%'||#{word}||'%'
+                     or
+                     content like '%'||#{word}||'%'
+                  </when>
+              </choose>
+           </where>
+    ORDER BY noticeno DESC))
+     <![CDATA[ where r>=#{sno} and r<=#{eno} ]]>
+  </select>
+  
+	
+	<update id="upCnt" parameterType="int">
+		update notice set cnt = cnt + 1 where noticeno = #{noticeno}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+	DELETE FROM notice WHERE noticeno=#{noticeno}
+	</delete>
+	
+	<select id="total" resultType="int" parameterType="Map">
+		select count(*) from notice
+		<where>
+		<choose>
+		<when test="col=='wname'">wname like '%'||#{word}||'%'</when>
+		<when test="col=='title'">title like '%'||#{word}||'%')</when>
+		<when test="col=='content'">content like '%'||#{word}||'%')</when>
+		<when test="col=='title_content'">
+			title like '%'||#{word}||'%' or content like '%'||#{word}||'%'
+		</when>
+		</choose>
+		</where>
+	</select>
+	
+	<select id="passwd" resultType="int" parameterType="HashMap">
+		SELECT COUNT(*) AS cnt FROM notice WHERE noticeno=#{noticeno} AND passwd=#{passwd}
+	</select>
+	
+</mapper>

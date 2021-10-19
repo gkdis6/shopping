@@ -20,12 +20,14 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.study.contents.ContentsDTO;
 import com.study.utility.Utility;
 
 @Controller
@@ -177,7 +179,7 @@ public class MemberController {
 
 		if (cnt == 1) {
 			model.addAttribute("id", dto.getId());
-			return "redirect:./read";
+			return "redirect:./read?id="+dto.getId();
 		} else {
 			return "error";
 		}
@@ -199,11 +201,7 @@ public class MemberController {
         //디비에 파일명 변경
         int cnt = service.updateFile(map);
         
-        if(cnt==1) {
-                return "redirect:./read";
-        }else {
-                return "./error";
-        }
+        return "redirect:./read";
 	}
 	
 	@GetMapping("/member/updateFile")
@@ -324,5 +322,37 @@ public class MemberController {
 	      
 	   return "/member/mypage";
 	  }
+	}
+	
+	@GetMapping("/member/delete/{id}")
+	public String delete(@PathVariable("id") String id, Model model) {
+		MemberDTO dto = service.read(id);
+		
+		model.addAttribute("id", id);
+		model.addAttribute("oldfile", dto.getFname());
+		
+		return "/member/delete";
+	}
+
+	@PostMapping("/member/delete")
+	public String delete(HttpServletRequest request, String id, Model model) throws IOException {
+		
+		MemberDTO dto = service.read(id);
+		String oldfile = dto.getFname();
+		String basePath = new ClassPathResource("/static/member/storage").getFile().getAbsolutePath();
+
+		if (oldfile != null && !oldfile.equals("default.jpg")) { // 원본파일 삭제
+			Utility.deleteFile(basePath, oldfile);
+		}
+		
+		Map map = new HashMap();
+		map.put("id", id);
+
+		int cnt = 0;
+
+		cnt = service.delete(id);
+
+		return "redirect:/admin/list";
+
 	}
 }

@@ -106,4 +106,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    ]]> 
 	    </select>
 	    
+	    <delete id="delete" parameterType="int">
+			DELETE FROM contents WHERE contentsno=#{contentsno}
+		</delete>
 </mapper>

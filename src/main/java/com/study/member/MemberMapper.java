@@ -26,4 +26,6 @@ public interface MemberMapper {
 	List<MemberDTO> list(Map map);
 	
 	MemberDTO mypage(String id);
+
+	int delete(String id);
 }

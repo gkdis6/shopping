@@ -74,4 +74,10 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return mapper.mypage(id);
 	}
+
+	@Override
+	public int delete(String id) {
+		// TODO Auto-generated method stub
+		return mapper.delete(id);
+	}
 }

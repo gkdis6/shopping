@@ -57,4 +57,16 @@ public class ContentsServiceImpl implements ContentsService {
 	    // TODO Auto-generated method stub
 	    return mapper.mainlist(map);
 	  }
+
+	@Override
+	public int passwd(Map map) {
+		// TODO Auto-generated method stub
+		return mapper.passwd(map);
+	}
+
+	@Override
+	public int delete(int contentsno) {
+		// TODO Auto-generated method stub
+		return mapper.delete(contentsno);
+	}
 }

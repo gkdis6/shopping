@@ -48,7 +48,7 @@ public class ContentsController {
 		int cnt = service.updateFile(map);
 
 		if (cnt == 1) {
-			return "redirect:./list";
+			return "redirect:/contents/list";
 		} else {
 			return "./error";
 		}
@@ -112,7 +112,7 @@ public class ContentsController {
 		int cnt = service.update(dto);
 
 		if (cnt == 1) {
-			return "redirect:./list";
+			return "redirect:/contents/list";
 		} else {
 			return "error";
 		}
@@ -154,7 +154,7 @@ public class ContentsController {
 		}
 
 		if (service.create(dto) > 0) {
-			return "redirect:./list";
+			return "redirect:/contents/list";
 		} else {
 			return "error";
 		}
@@ -209,17 +209,65 @@ public class ContentsController {
 
 		List<ContentsDTO> list = service.mainlist(map);
 
-		String paging = Utility.paging2(total, nowPage, recordPerPage, col, word, cateno);
+		String paging2 = Utility.paging2(total, nowPage, recordPerPage, col, word, cateno);
 
 		// request에 Model사용 결과 담는다
 		request.setAttribute("list", list);
 		request.setAttribute("nowPage", nowPage);
 		request.setAttribute("col", col);
 		request.setAttribute("word", word);
-		request.setAttribute("paging", paging);
+		request.setAttribute("paging2", paging2);
 		request.setAttribute("cateno", cateno);
 
 		return "/contents/mainlist";
 
 	}
+	
+	@GetMapping("/contents/read/{contentsno}")
+	public String read(@PathVariable("contentsno") int contentsno, Model model) {
+
+		ContentsDTO dto = service.detail(contentsno);
+
+		model.addAttribute("dto", dto);
+
+		return "/contents/read";
+
+	}
+	
+	@GetMapping("/contents/delete/{contentsno}")
+	public String delete(@PathVariable("contentsno") int contentsno, Model model) {
+		ContentsDTO dto = service.detail(contentsno);
+		
+		model.addAttribute("contentsno", contentsno);
+		model.addAttribute("oldfile", dto.getFilename());
+		
+		return "/contents/delete";
+	}
+
+	@PostMapping("/contents/delete")
+	public String delete(HttpServletRequest request, int contentsno, MultipartFile filenameMF,Model model) throws IOException {
+		
+		ContentsDTO dto = service.detail(contentsno);
+		String oldfile = dto.getFilename();
+		String basePath = new ClassPathResource("/static/pstorage").getFile().getAbsolutePath();
+
+		if (oldfile != null && !oldfile.equals("default.jpg")) { // 원본파일 삭제
+			Utility.deleteFile(basePath, oldfile);
+		}
+		
+		Map map = new HashMap();
+		map.put("contentsno", contentsno);
+
+		int cnt = 0;
+
+		cnt = service.delete(contentsno);
+
+		if (cnt == 1) {
+			return "redirect:/contents/list";
+		} else {
+			return "./error";
+		}
+
+	}
+	
 }
