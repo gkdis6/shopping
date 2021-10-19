@@ -313,7 +313,7 @@ public class MemberController {
 	   String id = (String)session.getAttribute("id");
 	 
 	  if(id==null) {
-	       return "redirect: ./login/";
+	       return "redirect:./login";
 	  }else {
 	  
 	       MemberDTO dto = service.mypage(id);
@@ -336,17 +336,14 @@ public class MemberController {
 
 	@PostMapping("/member/delete")
 	public String delete(HttpServletRequest request, String id, Model model) throws IOException {
-		
 		MemberDTO dto = service.read(id);
 		String oldfile = dto.getFname();
+		
 		String basePath = new ClassPathResource("/static/member/storage").getFile().getAbsolutePath();
 
 		if (oldfile != null && !oldfile.equals("default.jpg")) { // 원본파일 삭제
 			Utility.deleteFile(basePath, oldfile);
 		}
-		
-		Map map = new HashMap();
-		map.put("id", id);
 
 		int cnt = 0;
 

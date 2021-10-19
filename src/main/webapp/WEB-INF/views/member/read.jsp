@@ -29,7 +29,7 @@
 	  location.href = url;
   } */
   function deleteM(){
-	  var url = "delete";
+	  var url = "/member/delete";
 	  url += "/${dto.id}";
 	  location.href = url;
   }
@@ -91,7 +91,7 @@
  onclick="location.href='./download?filename=${dto.fname}'">다운로드</button>  
  </c:if> --%>
  <button class="btn btn-default" onclick="deleteM()">회원탈퇴</button>
- <c:if test="${not empty sessionScope.id and sessionScope.grade == 'A'}"> 
+ <c:if test="${not empty sessionScope.id and sessionScope.grade == 'A'}">
  <button class="btn btn-default" onclick="location.href='${root}/admin/list'">회원목록</button>
  </c:if>
  </div>

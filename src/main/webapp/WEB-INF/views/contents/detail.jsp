@@ -53,7 +53,7 @@
  </c:if> --%>
  <!-- <button class="btn btn-default" onclick="deleteM()">회원탈퇴</button> -->
  <%-- <c:if test="${not empty sessionScope.id and sessionScope.grade == 'A'}"> --%>
- <button class="btn btn-default" onclick="location.href='${root}/contents/mainlist/${dto.cateno }'">상품목록</button>
+ <button class="btn btn-default" onclick="location.href='${root}/contents/mainlist/${dto.cateno }'">상품목록</button> 
  <%-- </c:if> --%>
  </div>
  

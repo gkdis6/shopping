@@ -16,7 +16,7 @@
 
 <h1 class="col-sm-offset-2 col-sm-10">삭제</h1>
 <form class="form-horizontal" 
-      action="/contents/delete"
+      action="/member/delete"
       method="post"
       >
  <input type="hidden" name="id" value="${id}">
