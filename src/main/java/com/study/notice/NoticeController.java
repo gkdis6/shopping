@@ -22,13 +22,13 @@ public class NoticeController {
 	@Qualifier("com.study.notice.NoticeServiceImpl")
 	private NoticeService service;
 
-	@GetMapping("/notice/create")
+	@GetMapping("/admin/notice/create")
 	public String create() {
 
 		return "/notice/create";
 	}
 
-	@PostMapping("/notice/create")
+	@PostMapping("/admin/notice/create")
 	public String create(NoticeDTO dto) {
 
 		if (service.create(dto) == 1) {
@@ -100,7 +100,7 @@ public class NoticeController {
 		return "/notice/read";
 	}
 
-	@GetMapping("/notice/update")
+	@GetMapping("/admin/notice/update")
 	public String update(int noticeno, Model model) {
 
 		model.addAttribute("dto", service.read(noticeno));
@@ -108,7 +108,7 @@ public class NoticeController {
 		return "/notice/update";
 	}
 
-	@PostMapping("/notice/update")
+	@PostMapping("/admin/notice/update")
 	public String update(NoticeDTO dto) {
 
 		Map map = new HashMap();
@@ -132,13 +132,13 @@ public class NoticeController {
 
 	}
 
-	@GetMapping("/notice/delete")
+	@GetMapping("/admin/notice/delete")
 	public String delete() {
 
 		return "/notice/delete";
 	}
 
-	@PostMapping("/notice/delete")
+	@PostMapping("/admin/notice/delete")
 	public String delete(HttpServletRequest request, int noticeno, String passwd) {
 
 		Map map = new HashMap();
