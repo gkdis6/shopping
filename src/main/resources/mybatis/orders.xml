@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.orders.OrdersMapper">
+	<insert id="order" parameterType="com.study.orders.OrdersDTO">
+        insert into orders(orderno, id, contentsno, odate, quantity, total, payment, mname, pname)
+        values((select nvl(max(orderno),0)+1 from orders), #{id}, 
+        #{contentsno}, sysdate, #{quantity}, #{total}, #{payment}, '홍길동', #{pname})
+   </insert>
+   
+   <select id="checkCart" parameterType="String" resultType="int">
+       	SELECT cartno
+		FROM CART
+		where id=#{id}
+    </select> 
+   
+   <insert id="addCart" parameterType="com.study.orders.OrdersDTO">
+        insert into cart(cartno, id)
+        values((select nvl(max(cartno),0)+1 from cart),#{id})
+   </insert>
+
+	<select id="join" parameterType="String" resultType="com.study.orders.JoinDTO">
+       	SELECT *
+		FROM CART c JOIN MEMBER m 
+		ON c.id = m.ID 
+		JOIN ORDERS o 
+		ON c.ID = o.ID
+		where m.id=#{id}
+    </select> 
+    
+    <update id="cartOrder" parameterType="String">
+            update orders
+            set cartno = null
+            where id =#{id}
+    </update>
+    
+</mapper>

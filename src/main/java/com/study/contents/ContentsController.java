@@ -130,11 +130,11 @@ public class ContentsController {
 	}
 	
 	@GetMapping("/contents/detail/{contentsno}")
-	public String detail(@PathVariable("contentsno") int contentsno, Model model) {
+	public String detail(@PathVariable("contentsno") int contentsno, HttpSession session) {
 
 		ContentsDTO dto = service.detail(contentsno);
 
-		model.addAttribute("dto", dto);
+		session.setAttribute("dto", dto);
 
 		return "/contents/detail";
 

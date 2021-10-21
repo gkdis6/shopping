@@ -122,7 +122,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         o.orderno,o.odate,o.pname,o.quantity,o.total
         from member m left outer join orders o
         on m.id = o.id
-        where m.id=#{id}
+        where m.id=#{id} and o.cartno is null
     	</select> 
     	
     	<delete id="delete" parameterType="String">

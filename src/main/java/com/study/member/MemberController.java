@@ -310,7 +310,7 @@ public class MemberController {
 	
 	@GetMapping("/member/mypage")
 	public String mypage(HttpSession session, Model model) {
-	   String id = (String)session.getAttribute("id");
+	  String id = (String)session.getAttribute("id");
 	 
 	  if(id==null) {
 	       return "redirect:./login";
