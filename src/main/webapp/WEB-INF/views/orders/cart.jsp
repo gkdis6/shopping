@@ -49,7 +49,7 @@
     <td>${dto.quantity }</td>
     <td><span id="total">${dto.total }</span></td>
     <td> 
-        <a href="./delete/${dto.orderno }">
+        <a href="./cart/delete/${dto.orderno }">
           <span class="glyphicon glyphicon-trash"></span>
         </a> 
     </td>

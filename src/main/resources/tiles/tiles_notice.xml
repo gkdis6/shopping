@@ -5,7 +5,7 @@
        
 <tiles-definitions>
 
-  <definition name="/notice/create" extends="main">
+  <definition name="/admin/notice/create" extends="main">
 	<put-attribute name="title" value="공지생성"/>
 	<put-attribute name="body" value="/WEB-INF/views/notice/createForm.jsp"/>
   </definition>
@@ -20,12 +20,12 @@
 	<put-attribute name="body" value="/WEB-INF/views/notice/read.jsp"/>
   </definition>
 	
-  <definition name="/notice/update" extends="main">
+  <definition name="/admin/notice/update" extends="main">
 	<put-attribute name="title" value="공지수정"/>
 	<put-attribute name="body" value="/WEB-INF/views/notice/updateForm.jsp"/>
   </definition>
 	
-  <definition name="/notice/delete" extends="main">
+  <definition name="/admin/notice/delete" extends="main">
 	<put-attribute name="title" value="공지삭제"/>
 	<put-attribute name="body" value="/WEB-INF/views/notice/deleteForm.jsp"/>
   </definition>

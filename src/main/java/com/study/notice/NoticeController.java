@@ -25,14 +25,14 @@ public class NoticeController {
 	@GetMapping("/admin/notice/create")
 	public String create() {
 
-		return "/notice/create";
+		return "/admin/notice/create";
 	}
 
 	@PostMapping("/admin/notice/create")
 	public String create(NoticeDTO dto) {
 
 		if (service.create(dto) == 1) {
-			return "redirect:./list";
+			return "redirect:/notice/list";
 		} else {
 			return "/error";
 		}
@@ -54,7 +54,7 @@ public class NoticeController {
 		if (request.getParameter("nowPage") != null) {
 			nowPage = Integer.parseInt(request.getParameter("nowPage"));
 		}
-		int recordPerPage = 3;// 한페이지당 보여줄 레코드갯수
+		int recordPerPage = 10;// 한페이지당 보여줄 레코드갯수
 
 		// DB에서 가져올 순번-----------------
 		int sno = ((nowPage - 1) * recordPerPage);
@@ -105,7 +105,7 @@ public class NoticeController {
 
 		model.addAttribute("dto", service.read(noticeno));
 
-		return "/notice/update";
+		return "/admin/notice/update";
 	}
 
 	@PostMapping("/admin/notice/update")
@@ -125,7 +125,7 @@ public class NoticeController {
 		if (pcnt != 1) {
 			return "./passwdError";
 		} else if (cnt == 1) {
-			return "redirect:./list";
+			return "redirect:/notice/read?noticeno="+dto.getNoticeno();
 		} else {
 			return "./error";
 		}
@@ -135,7 +135,7 @@ public class NoticeController {
 	@GetMapping("/admin/notice/delete")
 	public String delete() {
 
-		return "/notice/delete";
+		return "/admin/notice/delete";
 	}
 
 	@PostMapping("/admin/notice/delete")
@@ -155,7 +155,7 @@ public class NoticeController {
 		if (pcnt != 1) {
 			return "./passwdError";
 		} else if (cnt == 1) {
-			return "redirect:./list";
+			return "redirect:/notice/list";
 		} else {
 			return "./error";
 		}

@@ -98,7 +98,7 @@ public class OrdersController {
 	public String delete(HttpServletRequest request, @PathVariable("orderno") int orderno) throws IOException {
 
 		if (service.delete(orderno) > 0) {
-			return "redirect:/cart";
+			return "redirect:/cartlist";
 		} else {
 			return "./error";
 		}

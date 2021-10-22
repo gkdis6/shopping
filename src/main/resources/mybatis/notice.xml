@@ -14,8 +14,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <insert id="create" parameterType="com.study.notice.NoticeDTO">
-        INSERT INTO notice(title, content, wname, passwd, cnt, rdate) 
-        VALUES(#{title}, #{content}, #{wname}, #{passwd}, 0, NOW())
+        INSERT INTO notice(title, noticeno, content, wname, passwd, cnt, rdate) 
+        VALUES(#{title}, (select nvl(max(noticeno),0)+1 from notice), #{content}, #{wname}, #{passwd}, 0, sysdate)
     </insert>
     
     <select id="list" parameterType="Map" resultType="com.study.notice.NoticeDTO">
