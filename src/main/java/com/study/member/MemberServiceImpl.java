@@ -80,4 +80,17 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return mapper.delete(id);
 	}
+
+	@Override
+	public int deleteOrder(String id) {
+		return mapper.deleteOrder(id);
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int deleteCart(String id) {
+		// TODO Auto-generated method stub
+		return mapper.deleteCart(id);
+	}
 }

@@ -28,4 +28,8 @@ public interface MemberMapper {
 	MemberDTO mypage(String id);
 
 	int delete(String id);
+
+	int deleteOrder(String id);
+
+	int deleteCart(String id);
 }

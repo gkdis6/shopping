@@ -44,7 +44,7 @@
  </table>
  <div style="text-align: center">
  <button class="btn btn-default" onclick="location.href='/order'">주문하기</button>
- <button class="btn btn-default" onclick="location.href='${root}/contents/list'">장바구니 담기</button>
+ <button class="btn btn-default" onclick="location.href='${root}/appendCart'">장바구니 담기</button>
  <%-- <c:if test="${not empty sessionScope.id and sessionScope.grade != 'A'}">
  <button class="btn btn-default" onclick="updateFile()">사진수정</button>
  <button class="btn btn-default" onclick="updatePw()">패스워드변경</button>

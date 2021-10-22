@@ -344,10 +344,10 @@ public class MemberController {
 		if (oldfile != null && !oldfile.equals("default.jpg")) { // 원본파일 삭제
 			Utility.deleteFile(basePath, oldfile);
 		}
-
-		int cnt = 0;
-
-		cnt = service.delete(id);
+		
+		service.deleteOrder(id);
+		service.deleteCart(id);
+		service.delete(id);
 
 		return "redirect:/admin/list";
 

@@ -128,4 +128,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	<delete id="delete" parameterType="String">
 			DELETE FROM member WHERE id=#{id}
 		</delete>
+		
+		<delete id="deleteOrder" parameterType="String">
+			DELETE FROM orders WHERE id=#{id}
+		</delete>
+		
+		<delete id="deleteCart" parameterType="String">
+			DELETE FROM cart WHERE id=#{id}
+		</delete>
 </mapper>

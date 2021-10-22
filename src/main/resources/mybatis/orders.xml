@@ -6,18 +6,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.study.orders.OrdersMapper">
 	<insert id="order" parameterType="com.study.orders.OrdersDTO">
-        insert into orders(orderno, id, contentsno, odate, quantity, total, payment, mname, pname)
+        insert into orders(orderno, id, contentsno, odate, quantity, total, payment, mname, pname, filename)
         values((select nvl(max(orderno),0)+1 from orders), #{id}, 
-        #{contentsno}, sysdate, #{quantity}, #{total}, #{payment}, '홍길동', #{pname})
+        #{contentsno}, sysdate, #{quantity}, #{total}, #{payment}, '홍길동', #{pname}, #{filename})
+   </insert>
+   
+   <insert id="cart" parameterType="com.study.orders.OrdersDTO">
+        insert into orders(orderno, id, contentsno, odate, quantity, total, payment, mname, pname, filename, cartno)
+        values((select nvl(max(orderno),0)+1 from orders), #{id}, 
+        #{contentsno}, sysdate, #{quantity}, #{total}, #{payment}, '홍길동', #{pname}, #{filename}, #{cartno})
    </insert>
    
    <select id="checkCart" parameterType="String" resultType="int">
+       	SELECT count(*)
+		FROM CART
+		where id=#{id}
+    </select> 
+    
+    <select id="getCart" parameterType="String" resultType="int">
        	SELECT cartno
 		FROM CART
 		where id=#{id}
     </select> 
    
-   <insert id="addCart" parameterType="com.study.orders.OrdersDTO">
+   <insert id="addCart" parameterType="String">
         insert into cart(cartno, id)
         values((select nvl(max(cartno),0)+1 from cart),#{id})
    </insert>
@@ -36,5 +48,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             set cartno = null
             where id =#{id}
     </update>
+    
+    <select id="cartlist" parameterType="String" resultType="com.study.orders.JoinDTO">
+        select m.id id, m.mname mname, o.cartno cartno, o.filename filename, o.payment payment, (total/quantity) as price, 
+        o.orderno orderno, o.pname pname, o.quantity quantity, o.total total, o.contentsno contentsno 
+        from orders o join member m 
+        on o.id = m.id 
+        where m.id=#{id} AND CARTNO IS NOT null
+    </select>
+    
+    <delete id="deleteCart" parameterType="String">
+			DELETE FROM orders WHERE id=#{id} and cartno is not null
+	</delete>
+	
+	<delete id="delete" parameterType="int">
+			DELETE FROM orders WHERE orderno=#{orderno}
+	</delete>
     
 </mapper>

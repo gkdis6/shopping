@@ -15,9 +15,9 @@
 <body> 
 
 <div class="container">
-<h1 class="col-sm-offset-2 col-sm-10">상품 주문</h1>
+<h1 class="col-sm-offset-2 col-sm-10">상품 담기</h1>
 <form class="form-horizontal" 
-      action="/order"
+      action="/appendCart"
       method="post"
       enctype="multipart/form-data"
       onsubmit="return checkIn(this)">
