@@ -25,8 +25,11 @@
  	<td>${dto.contentsno}</td>
  </tr>
  <tr>
- 	<th>카테고리 번호</th>
- 	<td>${dto.cateno}</td>
+ 	<th>카테고리</th>
+ 	<td>
+ 	<c:if test="${dto.cateno==1}"> 청바지 </c:if>
+ 	<c:if test="${dto.cateno==2}"> 가방 </c:if>
+ 	<c:if test="${dto.cateno==3}"> 신발 </c:if> </td>
  </tr>
  <tr>
  	<th>상품 이름</th>

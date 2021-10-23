@@ -1,6 +1,7 @@
 package com.study.orders;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrdersService {
 
@@ -21,5 +22,7 @@ public interface OrdersService {
 	int cart(OrdersDTO dto);
 
 	int getCart(String id);
+
+	int updateQt(Map<String, Integer> map);
 
 }

@@ -1,6 +1,7 @@
 package com.study.orders;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,6 +64,12 @@ public class OrdersServiceImpl implements OrdersService {
 	public int getCart(String id) {
 		// TODO Auto-generated method stub
 		return mapper.getCart(id);
+	}
+
+	@Override
+	public int updateQt(Map<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return mapper.updateQt(map);
 	}
 
 }

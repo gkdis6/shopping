@@ -65,4 +65,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			DELETE FROM orders WHERE orderno=#{orderno}
 	</delete>
     
+    <update id="updateQt" parameterType="Map">
+            update orders
+            set quantity = #{quantity}, 
+            total = #{total} 
+            where orderno = #{orderno}
+    </update>
 </mapper>

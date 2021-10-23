@@ -8,7 +8,7 @@
 <head>
   <title>장바구니</title>
   <meta charset="utf-8">
- 
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -46,8 +46,14 @@
     
     </td>
     <td>${dto.price}</td>
-    <td>${dto.quantity }</td>
-    <td><span id="total">${dto.total }</span></td>
+    <td>
+    	<select class="form-control" name="quantity${dto.orderno}" id="quantity${dto.orderno}" onchange="cal(this.value, ${dto.orderno}, ${dto.price} )">
+        	<option value=1 <c:if test= "${dto.quantity==1}">selected</c:if> >1</option>
+        	<option value=2 <c:if test= "${dto.quantity==2}">selected</c:if> >2</option>
+        	<option value=3 <c:if test= "${dto.quantity==3}">selected</c:if> >3</option>
+      	</select>
+    </td>
+    <td><span id="total${dto.orderno}">${dto.total }</span></td>
     <td> 
         <a href="./cart/delete/${dto.orderno }">
           <span class="glyphicon glyphicon-trash"></span>
@@ -62,9 +68,35 @@
    </tbody>
   
   </table>
-  <h2>총합 : <c:out value="${sum }"/></h2>
+  <h2>총합 : <span id="sum"><c:out value="${sum }"/></span></h2>
   <button class="btn btn-default" onclick="location.href='/orderAll'">구매하기</button>
  <button class="btn btn-default" onclick="location.href='/deleteAll'">모두 삭제</button>
 </div>
 </body> 
+<script>
+var cal=function(value, no, price){
+	var sum = Number($('#sum').text());
+	var total = Number($('#total'+no).text());
+	let form = {
+		quantity : value,
+		orderno : no, 
+		total : price*value
+	};
+	$.ajax({
+		url : "/cartlist",
+		type : "POST",
+		data : JSON.stringify(form),
+		contentType : "application/json; charset=utf-8;",
+		dataType : 'json',
+		success : function(data){
+			$('#total'+no).text(data.total);
+			sum = sum - total + data.total;
+			$('#sum').text(sum);
+		},
+		error : function(request, status, error){
+			alert("code = "+request.status+" message = "+request.responseText+" error = "+error);
+		}
+	});
+};
+</script>
 </html> 

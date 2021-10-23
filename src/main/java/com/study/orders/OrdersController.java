@@ -1,7 +1,10 @@
 package com.study.orders;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class OrdersController {
@@ -40,7 +45,6 @@ public class OrdersController {
 			return "redirect:./login";
 		}
 		if (service.order(dto) > 0) {
-			System.out.println("okokokokokokokokokokokokokokokokok");
 			return "redirect:/contents/detail/"+dto.getContentsno();
 		} else {
 			return "/error";
@@ -62,6 +66,19 @@ public class OrdersController {
 		      
 		   return "/cartlist";
 		  }
+	}
+	
+	@PostMapping(value = "/cartlist", produces = "application/json")
+	@ResponseBody
+	public Map<String, Integer> login(@RequestBody OrdersDTO dto, HttpServletRequest request) throws IOException {
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("orderno", dto.getOrderno());
+		map.put("quantity", dto.getQuantity());
+		map.put("total", dto.getTotal());
+		service.updateQt(map);
+		
+		return map;
 	}
 	
 	@GetMapping("/orderAll")
