@@ -24,5 +24,7 @@ public interface ContentsMapper {
 		int passwd(Map map);
 
 		int delete(int contentsno);
+
+		int deleteOrder(int contentsno);
 		
 }

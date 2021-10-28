@@ -69,4 +69,10 @@ public class ContentsServiceImpl implements ContentsService {
 		// TODO Auto-generated method stub
 		return mapper.delete(contentsno);
 	}
+
+	@Override
+	public int deleteOrder(int contentsno) {
+		// TODO Auto-generated method stub
+		return mapper.deleteOrder(contentsno);
+	}
 }

@@ -259,7 +259,7 @@ public class ContentsController {
 		map.put("contentsno", contentsno);
 
 		int cnt = 0;
-
+		cnt = service.deleteOrder(contentsno);
 		cnt = service.delete(contentsno);
 
 		if (cnt == 1) {

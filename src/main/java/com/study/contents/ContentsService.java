@@ -24,5 +24,7 @@ List<ContentsDTO> mainlist(Map map);
 int passwd(Map map);
 
 int delete(int contentsno);
+
+int deleteOrder(int contentsno);
  
 }

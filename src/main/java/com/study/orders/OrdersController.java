@@ -70,7 +70,7 @@ public class OrdersController {
 	
 	@PostMapping(value = "/cartlist", produces = "application/json")
 	@ResponseBody
-	public Map<String, Integer> login(@RequestBody OrdersDTO dto, HttpServletRequest request) throws IOException {
+	public Map<String, Integer> modify(@RequestBody OrdersDTO dto, HttpServletRequest request) throws IOException {
 		
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("orderno", dto.getOrderno());
@@ -89,7 +89,7 @@ public class OrdersController {
 			return "redirect:./login";
 		}
 		if (service.cartOrder(id) > 0) {
-			return "/";
+			return "/cartlist";
 		} else {
 			return "/error";
 		}
@@ -104,7 +104,7 @@ public class OrdersController {
 			return "redirect:./login";
 		}
 		if (service.deleteCart(id) > 0) {
-			return "/";
+			return "/cartlist";
 		} else {
 			return "/error";
 		}
