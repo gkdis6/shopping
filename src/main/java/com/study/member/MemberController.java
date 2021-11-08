@@ -128,7 +128,9 @@ public class MemberController {
 
 	@PostMapping("/member/create")
 	public String create(MemberDTO dto) throws IOException {
-		String upDir = new ClassPathResource("/static/member/storage").getFile().getAbsolutePath();
+		//String upDir = new ClassPathResource("/static/member/storage").getFile().getAbsolutePath();
+		
+		String upDir = Member.getUploadDir();
 		String fname = Utility.saveFileSpring(dto.getFnameMF(), upDir);
 		long size = dto.getFnameMF().getSize();
 
@@ -174,12 +176,14 @@ public class MemberController {
 	}
 
 	@PostMapping("/member/update")
-	public String update(MemberDTO dto, Model model) {
+	public String update(MemberDTO dto, HttpSession session, Model model) {
 		int cnt = service.update(dto);
 
+		String id = dto.getId();
+		dto = service.read(id);
+		model.addAttribute("dto", dto);
 		if (cnt == 1) {
-			model.addAttribute("id", dto.getId());
-			return "redirect:./read?id="+dto.getId();
+			return "/member/updateFile";
 		} else {
 			return "error";
 		}
@@ -187,7 +191,8 @@ public class MemberController {
 
 	@PostMapping("/member/updateFile")
 	public String updateFile(MultipartFile fnameMF, String oldfile, HttpSession session, HttpServletRequest request) throws IOException {
-		String basePath = new ClassPathResource("/static/storage").getFile().getAbsolutePath();
+		//String basePath = new ClassPathResource("/static/storage").getFile().getAbsolutePath();
+		String basePath = Member.getUploadDir();
         
         if(oldfile !=null  && !oldfile.equals("member.jpg")) { //원본파일 삭제
                 Utility.deleteFile(basePath, oldfile);
@@ -205,7 +210,7 @@ public class MemberController {
 	}
 	
 	@GetMapping("/member/updateFile")
-    public String updateFileForm() {
+    public String updateFile(MemberDTO dto, HttpSession session) {
             
             return "/member/updateFile";
     }
@@ -258,7 +263,9 @@ public class MemberController {
     public void download(HttpServletRequest request,
                     HttpServletResponse response) throws IOException {
             // 절대경로
-            String dir = new ClassPathResource("/static/member/storage").getFile().getAbsolutePath();
+            //String dir = new ClassPathResource("/static/member/storage").getFile().getAbsolutePath();
+		
+            String dir = Member.getUploadDir();
             String filename = request.getParameter("filename");
             byte[] files = FileUtils.readFileToByteArray(new File(dir, filename));
             response.setHeader("Content-disposition",
@@ -339,7 +346,8 @@ public class MemberController {
 		MemberDTO dto = service.read(id);
 		String oldfile = dto.getFname();
 		
-		String basePath = new ClassPathResource("/static/member/storage").getFile().getAbsolutePath();
+		//String basePath = new ClassPathResource("/static/member/storage").getFile().getAbsolutePath();
+		String basePath = Member.getUploadDir();
 
 		if (oldfile != null && !oldfile.equals("default.jpg")) { // 원본파일 삭제
 			Utility.deleteFile(basePath, oldfile);

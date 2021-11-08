@@ -39,7 +39,7 @@ public class ChatCont {
 //        return mav;
 //    }
     
-    @GetMapping("/naver_chatting")
+    @GetMapping("/chat")
 	public String chat() {
     	return "/chat";
 	}

@@ -18,6 +18,7 @@
 				</h3>
 				<img class="img-rounded" src="/member/storage/${dto.fname}"
 					style="width: 280px">${dto.fname}
+					<a href="/member/updateFile?oldfile=${dto.fname }">사진수정</a>
 				<div class="caption">
 					<p>ID:${dto.id}, 성명:${dto.mname}, 마일리지:9000원</p>
 					<p>배송지:(${dto.zipcode })${dto.address1 } ${dto.address2}</p>

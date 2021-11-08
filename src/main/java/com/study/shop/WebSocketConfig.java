@@ -1,4 +1,4 @@
-package com.study.chat;
+package com.study.shop;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
