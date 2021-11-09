@@ -9,11 +9,15 @@ public class Member {
     // Windows, VMWare, AWS cloud 절대 경로 설정
     public static synchronized String getUploadDir() {
         String path = "";
+        String os = System.getProperty("os.name").toLowerCase();
         if (File.separator.equals("\\")) {
             path = "f:/AIstudy/deploy/shopping/member/storage/";
             System.out.println("Windows 10: " + path);
             
-        } else {
+        } else if(os.equals("linux")){
+        	// System.out.println("Linux");
+            path = "/home/ubuntu/deploy/shopping/member/storage/";
+        }else {
             System.out.println("mac");
             path = "/Users/sangyongpark/deploy/shopping/member/storage/";
         }
